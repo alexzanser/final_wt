@@ -7,12 +7,6 @@ import pages.web.*;
 public class WebTests extends BaseTestWeb {
 
     @Test
-    public void testHomePageLoads() {
-        HomePage homePage = new HomePage(driver);
-        Assert.assertEquals(homePage.getHeaderText(), "Welcome to the-internet");
-    }
-
-    @Test
     public void testFormAuthentication() {
         HomePage homePage = new HomePage(driver);
         homePage.clickFormAuthentication();

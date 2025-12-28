@@ -15,11 +15,13 @@ public class DropdownPage extends BasePage {
     }
 
     public void selectOption(String option) {
+        waitForElementVisible(dropdown);
         Select select = new Select(dropdown);
         select.selectByVisibleText(option);
     }
 
     public String getSelectedOption() {
+        waitForElementVisible(dropdown);
         Select select = new Select(dropdown);
         return select.getFirstSelectedOption().getText();
     }

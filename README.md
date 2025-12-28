@@ -30,11 +30,43 @@
 - WebDriverManager автоматически загрузит chromedriver.
 
 ### Для мобильных тестов
-1. Установите Appium Server: `npm install -g appium`
-2. Запустите Appium: `appium --address 127.0.0.1 --port 4723`
-3. Настройте Android эмулятор или подключите устройство.
-4. Установите APK Wikipedia (org.wikipedia) на устройство.
-5. Убедитесь, что устройство доступно: `adb devices`
+1. Установите Android SDK:
+   ```bash
+   brew install --cask android-commandlinetools
+   sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-30"
+   sdkmanager "system-images;android-30;google_apis;x86_64"
+   ```
+
+2. Создайте AVD:
+   ```bash
+   avdmanager create avd -n test_avd -k "system-images;android-30;google_apis;x86_64" --device "pixel"
+   ```
+
+3. Настройте переменные окружения:
+   ```bash
+   export ANDROID_HOME=/opt/homebrew/share/android-commandlinetools
+   export PATH=$ANDROID_HOME/platform-tools:$PATH
+   ```
+
+4. Запустите эмулятор:
+   ```bash
+   emulator -avd test_avd
+   ```
+
+5. Установите APK Wikipedia на устройство:
+   ```bash
+   adb install path/to/wikipedia.apk
+   ```
+
+6. Запустите Appium сервер:
+   ```bash
+   appium --address 127.0.0.1 --port 4723
+   ```
+
+7. Запустите мобильные тесты:
+   ```bash
+   mvn test -DsuiteXmlFile=src/test/resources/testng-mobile.xml
+   ```
 
 ## Запуск тестов
 
@@ -46,6 +78,11 @@ mvn test -DsuiteXmlFile=src/test/resources/testng-web.xml
 ### Мобильные тесты
 ```bash
 mvn test -DsuiteXmlFile=src/test/resources/testng-mobile.xml
+```
+
+### Все тесты (требует настройки Appium)
+```bash
+mvn test
 ```
 
 ### Все тесты
@@ -75,6 +112,15 @@ mvn test
 ## Отчеты
 
 TestNG генерирует отчеты в `target/surefire-reports/`
+
+## Результаты тестирования
+
+Веб-тесты успешно проходят на сайте https://the-internet.herokuapp.com/:
+- ✅ Форма аутентификации
+- ✅ Чекбоксы
+- ✅ Dropdown
+
+Мобильные тесты требуют запуска Appium сервера и настройки Android устройства.
 
 ## Возможные проблемы
 

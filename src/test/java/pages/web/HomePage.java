@@ -6,16 +6,16 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends BasePage {
 
-    @FindBy(tagName = "h1")
+    @FindBy(css = "h1.heading")
     private WebElement header;
 
-    @FindBy(linkText = "Form Authentication")
+    @FindBy(css = "a[href='/login']")
     private WebElement formAuthLink;
 
-    @FindBy(linkText = "Checkboxes")
+    @FindBy(css = "a[href='/checkboxes']")
     private WebElement checkboxesLink;
 
-    @FindBy(linkText = "Dropdown")
+    @FindBy(css = "a[href='/dropdown']")
     private WebElement dropdownLink;
 
     public HomePage(WebDriver driver) {
@@ -23,18 +23,22 @@ public class HomePage extends BasePage {
     }
 
     public String getHeaderText() {
+        waitForElementVisible(header);
         return header.getText();
     }
 
     public void clickFormAuthentication() {
+        waitForElementClickable(formAuthLink);
         formAuthLink.click();
     }
 
     public void clickCheckboxes() {
+        waitForElementClickable(checkboxesLink);
         checkboxesLink.click();
     }
 
     public void clickDropdown() {
+        waitForElementClickable(dropdownLink);
         dropdownLink.click();
     }
 }

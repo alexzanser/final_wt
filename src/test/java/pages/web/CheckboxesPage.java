@@ -16,18 +16,21 @@ public class CheckboxesPage extends BasePage {
     }
 
     public void checkCheckbox(int index) {
+        waitForElementVisible(checkboxes.get(index));
         if (!checkboxes.get(index).isSelected()) {
             checkboxes.get(index).click();
         }
     }
 
     public void uncheckCheckbox(int index) {
+        waitForElementVisible(checkboxes.get(index));
         if (checkboxes.get(index).isSelected()) {
             checkboxes.get(index).click();
         }
     }
 
     public boolean isCheckboxSelected(int index) {
+        waitForElementVisible(checkboxes.get(index));
         return checkboxes.get(index).isSelected();
     }
 }
